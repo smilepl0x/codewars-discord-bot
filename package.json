@@ -1,0 +1,22 @@
+{
+  "name": "codewars-discord-bot",
+  "version": "1.0.0",
+  "description": "A bot that uses the public codewars api to retrieve user info or challenges",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "discord-api-types": "^0.23.1",
+    "discord.js": "^13.1.0",
+    "nodemon": "^2.0.13"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "codewars",
+    "bot"
+  ],
+  "author": "Danny Faught",
+  "license": "MIT"
+}
