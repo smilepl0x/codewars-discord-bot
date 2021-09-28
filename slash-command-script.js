@@ -11,7 +11,21 @@ const commands = [
         name: "user",
         description: "Get user info",
         type: 1,
-        options: [{ name: "username", description: "The user to get", type: 3 }],
+        options: [
+          { name: "username", description: "The user to get", type: 3 },
+        ],
+      },
+      {
+        name: "challenge",
+        description: "Fetch a challenge from CW",
+        type: 1,
+        options: [
+          {
+            name: "challenge",
+            description: "The ID or slug of the challenge",
+            type: 3,
+          },
+        ],
       },
     ],
   },
