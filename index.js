@@ -26,14 +26,41 @@ client.on("interactionCreate", async (interaction) => {
         } = response;
         if (username && overall && honor && totalCompleted) {
           interaction.reply(
-            `${username} is ranked ${overall.name} overall and has a total of ${honor} honor with ${totalCompleted} completed katas.`
+            `\`\`\`diff\n--${username}--\n+ Ranking: ${overall.name}\n+ Honor: ${honor}\n+ Katas completed: ${totalCompleted}\`\`\``
           );
         } else {
           throw new Error();
         }
       } catch (e) {
-        console.log(e);
-        interaction.reply("Err... Something went wrong.");
+        if (e.response.status === 404) {
+          interaction.reply("Couldn't find that user.");
+        } else {
+          interaction.reply("Err... Something went wrong.");
+        }
+      }
+    } else if (interaction.options.getSubcommand() === "challenge") {
+      const challenge = interaction.options.getString("challenge"); // Will be ID or slug.
+      try {
+        const response = await axios.get(
+          `https://www.codewars.com/api/v1/code-challenges/${challenge}`
+        );
+        const {
+          data: { name, rank: { name: kyu } = {}, url, description } = {},
+        } = response;
+        if (name && kyu && url && description) {
+          interaction.reply(
+            `\`\`\`diff\n--${name}--\n+ Ranking: ${kyu}\n\nDescription: ${description.replace(/\`\`\`/g, "")}\`\`\`\n Attempt here: ${url}`
+          );
+        } else {
+          throw new Error();
+        }
+      } catch (e) {
+        if (e.response && e.response.status === 404) {
+          interaction.reply("Couldn't find that challenge.");
+        } else {
+          interaction.reply("Err... Something went wrong.");
+          console.log(e)
+        }
       }
     }
   }
